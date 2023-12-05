@@ -22,13 +22,17 @@ public class OrderController {
     }
 
     public void run() {
-        outputView.printStartMessage();
+        showWelcomeMessage();
+
         VisitDay visitDay = initVisitDay();
         Order order = initOrder();
-
+        
         showPreviewMessage(visitDay.getDay());
         showOrderInfo(order.getInformation(), order.getTotalOrderPrice());
+    }
 
+    private void showWelcomeMessage() {
+        outputView.printStartMessage();
     }
 
     private void showPreviewMessage(Integer day) {

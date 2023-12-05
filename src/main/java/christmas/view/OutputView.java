@@ -7,7 +7,7 @@ public class OutputView {
     }
 
     public void printPreviewMessage(Integer day) {
-        System.out.println(String.format("12월 %d에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", day));
+        System.out.println(String.format("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", day));
     }
 
     public void printOrderMenuHeader() {
