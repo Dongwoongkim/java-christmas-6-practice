@@ -1,5 +1,7 @@
 package christmas.util;
 
+import christmas.exception.DuplicateFoodException;
+import christmas.exception.QuantityNonNumericException;
 import christmas.model.vo.Food;
 import christmas.model.vo.Quantity;
 import java.util.Arrays;
@@ -31,7 +33,7 @@ public class InputConverter {
                         orderInfo -> getFood(List.of(orderInfo)),
                         orderInfo -> getQuantity(List.of(orderInfo)),
                         (existing, replacement) -> {
-                            throw new IllegalArgumentException();
+                            throw new DuplicateFoodException();
                         }
                 ));
     }
@@ -50,8 +52,7 @@ public class InputConverter {
         try {
             return new Quantity(Integer.valueOf(order.get(QUANTITY_INDEX).trim()));
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException();
+            throw new QuantityNonNumericException();
         }
     }
-
 }

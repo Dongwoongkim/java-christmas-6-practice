@@ -1,5 +1,6 @@
 package christmas.model.vo;
 
+import christmas.exception.NonExistInMenuException;
 import christmas.model.Menu;
 
 public record Food(String name) {
@@ -10,7 +11,7 @@ public record Food(String name) {
 
     private void validate(String name) {
         if (!Menu.isFoodContain(name)) {
-            throw new IllegalArgumentException();
+            throw new NonExistInMenuException();
         }
     }
 }

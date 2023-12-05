@@ -33,5 +33,9 @@ public class OutputView {
     public void printBadge() {
         System.out.println("<12월 이벤트 배지>");
     }
+
+    public void printErrorMessage(String message) {
+        System.out.println(message);
+    }
 }
 

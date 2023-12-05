@@ -1,5 +1,6 @@
 package christmas.model.vo;
 
+import christmas.exception.OverMaxQuantityException;
 import java.util.Map;
 
 public class Order {
@@ -15,7 +16,7 @@ public class Order {
 
     private void validate(Map<Food, Quantity> orderInfo) {
         if (!isLessThanMaxQuantity(orderInfo)) {
-            throw new IllegalArgumentException();
+            throw new OverMaxQuantityException(MAX_QUANTITY);
         }
     }
 

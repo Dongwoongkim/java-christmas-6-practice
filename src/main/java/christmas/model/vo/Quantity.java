@@ -1,5 +1,7 @@
 package christmas.model.vo;
 
+import christmas.exception.ZeroQuantityException;
+
 public class Quantity {
 
     private final Integer amount;
@@ -11,7 +13,7 @@ public class Quantity {
 
     private void validate(Integer amount) {
         if (!isOverZero(amount)) {
-            throw new IllegalArgumentException();
+            throw new ZeroQuantityException();
         }
     }
 

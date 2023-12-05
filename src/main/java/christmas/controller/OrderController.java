@@ -24,14 +24,26 @@ public class OrderController {
     }
 
     private VisitDay initVisitDay() {
-        String date = inputView.readDate();
-        InputValidator.validateDate(date);
-        return new VisitDay(InputConverter.convertStringToInteger(date));
+        while (true) {
+            try {
+                String date = inputView.readDate();
+                InputValidator.validateDate(date);
+                return new VisitDay(InputConverter.convertStringToInteger(date));
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 
     private Order initOrder() {
-        String order = inputView.readOrderMenu();
-        InputValidator.validateOrder(order);
-        return new Order(InputConverter.convertStringToOrderMap(order));
+        while (true) {
+            try {
+                String order = inputView.readOrderMenu();
+                InputValidator.validateOrder(order);
+                return new Order(InputConverter.convertStringToOrderMap(order));
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }

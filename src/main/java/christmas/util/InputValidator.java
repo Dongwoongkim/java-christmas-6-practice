@@ -1,5 +1,8 @@
 package christmas.util;
 
+import christmas.exception.EmptyInputException;
+import christmas.exception.NonNumericException;
+
 public class InputValidator {
 
     private InputValidator() {
@@ -7,17 +10,17 @@ public class InputValidator {
 
     public static void validateDate(String date) {
         if (date.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new EmptyInputException();
         }
 
         if (!isNumeric(date)) {
-            throw new IllegalArgumentException();
+            throw new NonNumericException();
         }
     }
 
     public static void validateOrder(String order) {
         if (order.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new EmptyInputException();
         }
     }
 
