@@ -1,7 +1,12 @@
 package christmas.controller;
 
+import christmas.model.vo.Order;
+import christmas.model.vo.VisitDay;
+import christmas.util.InputConverter;
+import christmas.util.InputValidator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+
 
 public class OrderController {
 
@@ -14,5 +19,19 @@ public class OrderController {
     }
 
     public void run() {
+        VisitDay visitDay = initVisitDay();
+        Order order = initOrder();
+    }
+
+    private VisitDay initVisitDay() {
+        String date = inputView.readDate();
+        InputValidator.validateDate(date);
+        return new VisitDay(InputConverter.convertStringToInteger(date));
+    }
+
+    private Order initOrder() {
+        String order = inputView.readOrderMenu();
+        InputValidator.validateOrder(order);
+        return new Order(InputConverter.convertStringToOrderMap(order));
     }
 }

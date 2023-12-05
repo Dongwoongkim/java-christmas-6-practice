@@ -5,7 +5,7 @@ public class InputValidator {
     private InputValidator() {
     }
 
-    public void validateDate(String date) {
+    public static void validateDate(String date) {
         if (date.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -15,13 +15,13 @@ public class InputValidator {
         }
     }
 
-    public void validateOrder(String order) {
+    public static void validateOrder(String order) {
         if (order.isEmpty()) {
             throw new IllegalArgumentException();
         }
     }
 
-    private boolean isNumeric(String date) {
+    private static boolean isNumeric(String date) {
         try {
             Integer.valueOf(date);
             return true;
