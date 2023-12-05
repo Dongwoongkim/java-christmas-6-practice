@@ -1,15 +1,16 @@
 package christmas.model.vo;
 
-public class Food {
+import christmas.model.Menu;
 
-    private final String name;
+public record Food(String name) {
 
-    public Food(String name) {
+    public Food {
         validate(name);
-        this.name = name;
     }
 
     private void validate(String name) {
-        // TODO : 메뉴에 있는 주문인지 검사
+        if (!Menu.isFoodContain(name)) {
+            throw new IllegalArgumentException();
+        }
     }
 }
