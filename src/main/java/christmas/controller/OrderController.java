@@ -1,11 +1,14 @@
 package christmas.controller;
 
+import christmas.model.vo.Food;
 import christmas.model.vo.Order;
+import christmas.model.vo.Quantity;
 import christmas.model.vo.VisitDay;
 import christmas.util.InputConverter;
 import christmas.util.InputValidator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.Map;
 
 
 public class OrderController {
@@ -19,8 +22,23 @@ public class OrderController {
     }
 
     public void run() {
+        outputView.printStartMessage();
         VisitDay visitDay = initVisitDay();
         Order order = initOrder();
+
+        showPreviewMessage(visitDay.getDay());
+        showOrderInfo(order.getInformation(), order.getTotalOrderPrice());
+
+    }
+
+    private void showPreviewMessage(Integer day) {
+        outputView.printPreviewMessage(day);
+    }
+
+    private void showOrderInfo(Map<Food, Quantity> information, Integer totalOrderPrice) {
+        outputView.printOrderMenuHeader();
+        information.forEach((food, quantity) -> outputView.printOrderMenu(food.name(), quantity.getAmount()));
+        outputView.printOrderPriceBeforeDiscount(totalOrderPrice);
     }
 
     private VisitDay initVisitDay() {

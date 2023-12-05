@@ -6,12 +6,21 @@ public class OutputView {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
     }
 
-    public void printOrderMenu() {
-        System.out.println("<주문 메뉴>");
+    public void printPreviewMessage(Integer day) {
+        System.out.println(String.format("12월 %d에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", day));
     }
 
-    public void printOrderPriceBeforeDiscount() {
-        System.out.println("<할인 전 총주문 금액>");
+    public void printOrderMenuHeader() {
+        System.out.println("\n<주문 내역>");
+    }
+
+    public void printOrderMenu(String food, Integer quantity) {
+        System.out.println(food + " " + quantity + "개");
+    }
+
+    public void printOrderPriceBeforeDiscount(Integer amount) {
+        System.out.println("\n<할인 전 총주문 금액>");
+        System.out.println(String.format("%,d원", amount));
     }
 
     public void printGift() {

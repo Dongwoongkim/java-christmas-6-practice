@@ -25,4 +25,8 @@ public class VisitDay {
         }
         return false;
     }
+
+    public Integer getDay() {
+        return day;
+    }
 }
