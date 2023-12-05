@@ -1,6 +1,7 @@
 package christmas.util;
 
 import christmas.exception.DuplicateFoodException;
+import christmas.exception.InvalidOrderException;
 import christmas.exception.QuantityNonNumericException;
 import christmas.model.vo.Food;
 import christmas.model.vo.Quantity;
@@ -53,6 +54,8 @@ public class InputConverter {
             return new Quantity(Integer.valueOf(order.get(QUANTITY_INDEX).trim()));
         } catch (NumberFormatException e) {
             throw new QuantityNonNumericException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidOrderException();
         }
     }
 }
