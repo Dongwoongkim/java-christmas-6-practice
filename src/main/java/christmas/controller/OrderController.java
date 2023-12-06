@@ -28,10 +28,12 @@ public class OrderController {
 
     public void run() {
         showWelcomeMessage();
+
         VisitDay visitDay = initVisitDay();
         Order order = initOrder();
         Benefit benefit = initBenefit(order, visitDay);
         Badge badge = initBadge(benefit);
+
         showResult(visitDay, order, benefit, badge);
     }
 
@@ -84,7 +86,7 @@ public class OrderController {
 
     private void showBenefitInfo(Order order, Benefit benefit, Badge badge) {
         outputView.printGift(benefit.isExistGift());
-        outputView.printBenefitDetails(benefit.getInfo());
+        outputView.printBenefitDetails(benefit.getDetails());
         outputView.printBenefitPrice(benefit.getTotalBenefitPrice());
         outputView.printOrderPriceAfterDiscount(order.getTotalOrderPrice() - benefit.getDiscountPrice());
         outputView.printBadge(badge.getName());
