@@ -1,5 +1,10 @@
 package christmas.model;
 
+import static christmas.model.BadgeInfo.NON_BADGE;
+import static christmas.model.BadgeInfo.SANTA_BADGE;
+import static christmas.model.BadgeInfo.STAR_BADGE;
+import static christmas.model.BadgeInfo.TREE_BADGE;
+
 public class Badge {
 
     private final String name;
@@ -9,16 +14,16 @@ public class Badge {
     }
 
     public static Badge create(Integer totalBenefitPrice) {
-        if (totalBenefitPrice >= 20000) {
-            return new Badge("산타");
+        if (totalBenefitPrice >= SANTA_BADGE.getRequiredAmount()) {
+            return new Badge(SANTA_BADGE.getName());
         }
-        if (totalBenefitPrice >= 10000) {
-            return new Badge("트리");
+        if (totalBenefitPrice >= TREE_BADGE.getRequiredAmount()) {
+            return new Badge(TREE_BADGE.getName());
         }
-        if (totalBenefitPrice >= 5000) {
-            return new Badge("별");
+        if (totalBenefitPrice >= STAR_BADGE.getRequiredAmount()) {
+            return new Badge(STAR_BADGE.getName());
         }
-        return new Badge("없음");
+        return new Badge(NON_BADGE.getName());
     }
 
     public String getName() {

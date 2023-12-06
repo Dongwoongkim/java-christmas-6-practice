@@ -1,7 +1,8 @@
-package christmas.model.vo;
+package christmas.model;
 
 import christmas.exception.OverMaxQuantityException;
-import christmas.model.Menu;
+import christmas.model.vo.Food;
+import christmas.model.vo.Quantity;
 import java.util.Map;
 
 public class Order {
@@ -45,5 +46,4 @@ public class Order {
                 .mapToInt(order -> order.getValue().getAmount())
                 .sum();
     }
-
 }

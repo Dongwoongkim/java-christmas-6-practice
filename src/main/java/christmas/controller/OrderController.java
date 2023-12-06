@@ -5,8 +5,8 @@ import static christmas.model.Menu.MAIN;
 
 import christmas.model.Badge;
 import christmas.model.Benefit;
+import christmas.model.Order;
 import christmas.model.vo.Food;
-import christmas.model.vo.Order;
 import christmas.model.vo.Quantity;
 import christmas.model.vo.VisitDay;
 import christmas.util.InputConverter;
@@ -28,47 +28,15 @@ public class OrderController {
 
     public void run() {
         showWelcomeMessage();
-
         VisitDay visitDay = initVisitDay();
         Order order = initOrder();
-
-        showPreviewMessage(visitDay.getDay());
-        showOrderInfo(order.getInformation(), order.getTotalOrderPrice());
-
         Benefit benefit = initBenefit(order, visitDay);
         Badge badge = initBadge(benefit);
-        showBenefitInfo(order, benefit, badge);
-    }
-
-    private Badge initBadge(Benefit benefit) {
-        return Badge.create(benefit.getTotalBenefitPrice());
-    }
-
-    private void showBenefitInfo(Order order, Benefit benefit, Badge badge) {
-        outputView.printGift(benefit.isExistGift());
-        outputView.printBenefitDetails(benefit.getInfo());
-        outputView.printBenefitPrice(benefit.getTotalBenefitPrice());
-        outputView.printOrderPriceAfterDiscount(order.getTotalOrderPrice() - benefit.getDiscountPrice());
-        outputView.printBadge(badge.getName());
-    }
-
-    private Benefit initBenefit(Order order, VisitDay visitDay) {
-        return Benefit.create(order.getTotalOrderPrice(), order.getQuantity(DESSERT), order.getQuantity(MAIN),
-                visitDay);
+        showResult(visitDay, order, benefit, badge);
     }
 
     private void showWelcomeMessage() {
         outputView.printStartMessage();
-    }
-
-    private void showPreviewMessage(Integer day) {
-        outputView.printPreviewMessage(day);
-    }
-
-    private void showOrderInfo(Map<Food, Quantity> information, Integer totalOrderPrice) {
-        outputView.printOrderMenuHeader();
-        information.forEach((food, quantity) -> outputView.printOrderMenu(food.name(), quantity.getAmount()));
-        outputView.printOrderPriceBeforeDiscount(totalOrderPrice);
     }
 
     private VisitDay initVisitDay() {
@@ -93,5 +61,38 @@ public class OrderController {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    private Benefit initBenefit(Order order, VisitDay visitDay) {
+        return Benefit.create(order.getTotalOrderPrice(), order.getQuantity(DESSERT), order.getQuantity(MAIN),
+                visitDay);
+    }
+
+    private Badge initBadge(Benefit benefit) {
+        return Badge.create(benefit.getTotalBenefitPrice());
+    }
+
+    private void showResult(VisitDay visitDay, Order order, Benefit benefit, Badge badge) {
+        showPreviewMessage(visitDay.getDay());
+        showOrderInfo(order.getInformation(), order.getTotalOrderPrice());
+        showBenefitInfo(order, benefit, badge);
+    }
+
+    private void showPreviewMessage(Integer day) {
+        outputView.printPreviewMessage(day);
+    }
+
+    private void showBenefitInfo(Order order, Benefit benefit, Badge badge) {
+        outputView.printGift(benefit.isExistGift());
+        outputView.printBenefitDetails(benefit.getInfo());
+        outputView.printBenefitPrice(benefit.getTotalBenefitPrice());
+        outputView.printOrderPriceAfterDiscount(order.getTotalOrderPrice() - benefit.getDiscountPrice());
+        outputView.printBadge(badge.getName());
+    }
+
+    private void showOrderInfo(Map<Food, Quantity> information, Integer totalOrderPrice) {
+        outputView.printOrderMenuHeader();
+        information.forEach((food, quantity) -> outputView.printOrderMenu(food.name(), quantity.getAmount()));
+        outputView.printOrderPriceBeforeDiscount(totalOrderPrice);
     }
 }

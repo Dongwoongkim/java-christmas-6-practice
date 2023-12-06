@@ -1,7 +1,7 @@
 package christmas.model;
 
 public enum BenefitInfo {
-
+    
     D_DAY_DISCOUNT("크리스마스 디데이 할인", 100),
     WEEKDAY_DISCOUNT("평일 할인", 2023),
     WEEKEND_DISCOUNT("주말 할인", 2023),

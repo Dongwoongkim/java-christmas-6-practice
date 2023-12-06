@@ -12,6 +12,11 @@ import java.util.Map;
 
 public class Benefit {
 
+    private static final Integer REQUIRED_AMOUNT_FOR_GIFT = 120000;
+    private static final Integer DEFAULT_D_DAY_AMOUNT = 900;
+    private static final Integer ZERO_AMOUNT = 0;
+    private static final Integer ZERO_PRICE = 0;
+
     private final Map<BenefitInfo, Integer> info;
 
     private Benefit(Map<BenefitInfo, Integer> info) {
@@ -23,23 +28,43 @@ public class Benefit {
                                  VisitDay visitDay) {
         Map<BenefitInfo, Integer> info = new HashMap<>();
 
-        if (visitDay.isBeforeChristmas()) {
-            info.put(D_DAY_DISCOUNT, 900 + D_DAY_DISCOUNT.getPrice() * visitDay.getDay());
+        putDDayDiscount(visitDay, info);
+        putWeekendDiscount(dessertQuantity, visitDay, info);
+        putWeekDayDiscount(mainQuantity, visitDay, info);
+        putSpecialDayDiscount(visitDay, info);
+        putGift(totalOrderAmount, info);
+
+        return new Benefit(info);
+    }
+
+    private static void putGift(Integer totalOrderAmount, Map<BenefitInfo, Integer> info) {
+        if (totalOrderAmount >= REQUIRED_AMOUNT_FOR_GIFT) {
+            info.put(GIFT, GIFT.getPrice());
         }
-        if (visitDay.isWeekend() && !dessertQuantity.equals(0)) {
-            info.put(WEEKEND_DISCOUNT, WEEKDAY_DISCOUNT.getPrice() * dessertQuantity);
-        }
-        if (!visitDay.isWeekend() && !mainQuantity.equals(0)) {
-            info.put(WEEKDAY_DISCOUNT, WEEKDAY_DISCOUNT.getPrice() * mainQuantity);
-        }
+    }
+
+    private static void putSpecialDayDiscount(VisitDay visitDay, Map<BenefitInfo, Integer> info) {
         if (visitDay.isSpecialDay()) {
             info.put(SPECIAL_DISCOUNT, SPECIAL_DISCOUNT.getPrice());
         }
-        if (totalOrderAmount >= 120000) {
-            info.put(GIFT, GIFT.getPrice());
-        }
+    }
 
-        return new Benefit(info);
+    private static void putWeekDayDiscount(Integer mainQuantity, VisitDay visitDay, Map<BenefitInfo, Integer> info) {
+        if (!visitDay.isWeekend() && !mainQuantity.equals(ZERO_AMOUNT)) {
+            info.put(WEEKDAY_DISCOUNT, WEEKDAY_DISCOUNT.getPrice() * mainQuantity);
+        }
+    }
+
+    private static void putWeekendDiscount(Integer dessertQuantity, VisitDay visitDay, Map<BenefitInfo, Integer> info) {
+        if (visitDay.isWeekend() && !dessertQuantity.equals(ZERO_AMOUNT)) {
+            info.put(WEEKEND_DISCOUNT, WEEKDAY_DISCOUNT.getPrice() * dessertQuantity);
+        }
+    }
+
+    private static void putDDayDiscount(VisitDay visitDay, Map<BenefitInfo, Integer> info) {
+        if (visitDay.isBeforeChristmas()) {
+            info.put(D_DAY_DISCOUNT, DEFAULT_D_DAY_AMOUNT + D_DAY_DISCOUNT.getPrice() * visitDay.getDay());
+        }
     }
 
     public Integer getTotalBenefitPrice() {
@@ -56,7 +81,7 @@ public class Benefit {
         if (info.containsKey(GIFT)) {
             return info.get(GIFT);
         }
-        return 0;
+        return ZERO_PRICE;
     }
 
     public boolean isExistGift() {
