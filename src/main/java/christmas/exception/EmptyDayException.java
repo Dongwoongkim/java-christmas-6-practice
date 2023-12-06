@@ -2,9 +2,9 @@ package christmas.exception;
 
 import static christmas.exception.message.ErrorMessage.INVALID_DAY_EXCEPTION;
 
-public class InvalidDayException extends IllegalArgumentException {
+public class EmptyDayException extends IllegalArgumentException {
 
-    public InvalidDayException() {
+    public EmptyDayException() {
         super(INVALID_DAY_EXCEPTION.getMessage());
     }
 }

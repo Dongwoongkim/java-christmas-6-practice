@@ -1,8 +1,10 @@
 package christmas.exception;
 
+import static christmas.exception.message.ErrorMessage.INVALID_ORDER_EXCEPTION;
+
 public class DuplicateFoodException extends IllegalArgumentException {
 
     public DuplicateFoodException() {
-        super("[ERROR] 입력하신 주문에 중복된 메뉴가 존재합니다.");
+        super(INVALID_ORDER_EXCEPTION.getMessage());
     }
 }

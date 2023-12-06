@@ -1,8 +1,10 @@
 package christmas.exception;
 
+import static christmas.exception.message.ErrorMessage.INVALID_ORDER_EXCEPTION;
+
 public class InvalidOrderException extends IllegalArgumentException {
 
     public InvalidOrderException() {
-        super("[ERROR] 유효하지 않은 주문 형식입니다.");
+        super(INVALID_ORDER_EXCEPTION.getMessage());
     }
 }

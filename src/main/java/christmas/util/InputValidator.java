@@ -1,32 +1,33 @@
 package christmas.util;
 
-import christmas.exception.EmptyInputException;
-import christmas.exception.NonNumericException;
+import christmas.exception.EmptyDayException;
+import christmas.exception.EmptyOrderException;
+import christmas.exception.NonNumericDayException;
 
 public class InputValidator {
 
     private InputValidator() {
     }
 
-    public static void validateDate(String date) {
-        if (date.isEmpty()) {
-            throw new EmptyInputException();
+    public static void validateDay(String day) {
+        if (day.isEmpty()) {
+            throw new EmptyDayException();
         }
 
-        if (!isNumeric(date)) {
-            throw new NonNumericException();
+        if (!isNumeric(day)) {
+            throw new NonNumericDayException();
         }
     }
 
     public static void validateOrder(String order) {
         if (order.isEmpty()) {
-            throw new EmptyInputException();
+            throw new EmptyOrderException();
         }
     }
 
-    private static boolean isNumeric(String date) {
+    private static boolean isNumeric(String day) {
         try {
-            Integer.valueOf(date);
+            Integer.valueOf(day);
             return true;
         } catch (NumberFormatException e) {
             return false;

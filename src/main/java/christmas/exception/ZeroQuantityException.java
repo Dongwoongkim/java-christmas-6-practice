@@ -1,8 +1,10 @@
 package christmas.exception;
 
+import static christmas.exception.message.ErrorMessage.INVALID_ORDER_EXCEPTION;
+
 public class ZeroQuantityException extends IllegalArgumentException {
 
     public ZeroQuantityException() {
-        super("[ERROR] 주문 수량에 0이 포함되어 있습니다.");
+        super(INVALID_ORDER_EXCEPTION.getMessage());
     }
 }

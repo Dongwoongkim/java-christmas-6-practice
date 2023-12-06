@@ -17,7 +17,7 @@ public class Order {
 
     private void validate(Map<Food, Quantity> information) {
         if (!isLessThanMaxQuantity(information)) {
-            throw new OverMaxQuantityException(MAX_QUANTITY);
+            throw new OverMaxQuantityException();
         }
     }
 
@@ -37,4 +37,13 @@ public class Order {
     public Map<Food, Quantity> getInformation() {
         return information;
     }
+
+    public Integer getQuantity(Menu menu) {
+        return information.entrySet()
+                .stream()
+                .filter(order -> menu.getFood().containsKey(order.getKey().name()))
+                .mapToInt(order -> order.getValue().getAmount())
+                .sum();
+    }
+
 }
